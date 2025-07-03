@@ -589,19 +589,9 @@
 
 
 
+
             
-            if (!response.ok) {
-                if (response.status === 404) {
-                    throw new Error('User not found');
-                } else if (response.status === 403) {
-                    throw new Error('API rate limit exceeded');
-                } else {
-                    throw new Error('Failed to fetch profile');
-                }
-            }
             
-            return response.json();
-        }
 
         // Update profile card
         function updateProfileCard(userData) {
