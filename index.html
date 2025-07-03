@@ -641,7 +641,7 @@
             }
         });
 
-        // Auto-focus on input
+        // Autofocus on input
         usernameInput.focus();
 
         // Enter key on input
@@ -651,11 +651,11 @@
             }
         });
 
-        // Demo: Load a sample profile on page load
+        // Demo Loading a sample profile on page load
         window.addEventListener('load', () => {
-            // Uncomment the line below to load a demo profile
-            // usernameInput.value = 'octocat';
-            // searchForm.dispatchEvent(new Event('submit'));
+             
+            usernameInput.value = 'octocat';
+             searchForm.dispatchEvent(new Event('submit'));
         });
     </script>
 </body>
