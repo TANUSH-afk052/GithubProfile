@@ -1,4 +1,4 @@
-// server.js (ES module style) some errors occured
+// server.js (ES module style) 
 import express from 'express';
 import fetch from 'node-fetch';
 
