@@ -1,30 +1,28 @@
 const express = require('express');
-const fetch = require('node-fetch');
-const cors = require('cors');
-const app = express();
+const path = require('path');
+
+const app = express(); // ✅ THIS is what you forgot
 const PORT = process.env.PORT || 3000;
 
-app.use(cors());
+// Serve static files (HTML, CSS, JS) from "public" folder
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/github/:username', async (req, res) => {
+// GitHub Profile API endpoint
+app.get('/api/github/:username', async (req, res) => {
   const username = req.params.username;
+  const url = `https://api.github.com/users/${username}`;
 
   try {
-    const response = await fetch(`https://api.github.com/users/${username}`);
-    if (!response.ok) {
-      return res.status(response.status).json({ error: 'GitHub user not found or API error' });
-    }
+    const response = await fetch(url); // ✅ fetch is built-in in Node.js v22
+    if (!response.ok) throw new Error('User not found');
     const data = await response.json();
     res.json(data);
   } catch (err) {
-    res.status(500).json({ error: 'Server error' });
+    res.status(500).json({ error: err.message });
   }
 });
 
-app.get('/', (req, res) => {
-  res.send('GitHub Proxy is running');
-});
-
+// Start the server
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`✅ Server is running at http://localhost:${PORT}`);
 });
