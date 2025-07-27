@@ -4,7 +4,7 @@ async function getProfile() {
   result.innerHTML = 'Loading...';
 
   try {
-    const res = await fetch(`/api/github/${username}`);
+    const res = await fetch(`/api/github/${username}`); //use correct url and correct username
     const data = await res.json();
 
     if (data.error) {
