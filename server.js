@@ -1,10 +1,10 @@
 const express = require('express');
 const path = require('path');
 
-const app = express(); // ✅ THIS is what you forgot
+const app = express(); 
 const PORT = process.env.PORT || 3000;
 
-// Serve static files (HTML, CSS, JS) from "public" folder
+/
 app.use(express.static(path.join(__dirname, 'public')));
 
 // GitHub Profile API endpoint
@@ -13,7 +13,7 @@ app.get('/api/github/:username', async (req, res) => {
   const url = `https://api.github.com/users/${username}`;
 
   try {
-    const response = await fetch(url); // ✅ fetch is built-in in Node.js v22
+    const response = await fetch(url); 
     if (!response.ok) throw new Error('User not found');
     const data = await response.json();
     res.json(data);
@@ -26,3 +26,5 @@ app.get('/api/github/:username', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`✅ Server is running at http://localhost:${PORT}`);
 });
+// when v below 18 use node-fetch 
+// fetch is built-in in Node.js v22
