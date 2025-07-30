@@ -2,6 +2,7 @@
   "name": "github-profile-checker",
   "version": "2.0.0",
   "description": "A modern web application to explore GitHub profiles, repositories, and starred projects with beautiful animated themes",
+  "type": "module",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
