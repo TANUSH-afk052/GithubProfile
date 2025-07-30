@@ -2,24 +2,340 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>GitHub Profile Checker</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="GitHub Profile Checker - Explore GitHub profiles, repositories, and starred projects with beautiful animated themes">
+  <meta name="keywords" content="GitHub, profile, checker, repositories, developer, coding">
+  <meta name="author" content="GitHub Profile Checker">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="GitHub Profile Checker">
+  <meta property="og:description" content="Explore GitHub profiles with beautiful animated themes">
+  <meta property="og:url" content="">
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:title" content="GitHub Profile Checker">
+  <meta property="twitter:description" content="Explore GitHub profiles with beautiful animated themes">
+  
+  <title>GitHub Profile Checker - Explore Developer Profiles</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔍</text></svg>">
+  
+  <!-- Preconnect to external domains for better performance -->
+  <link rel="preconnect" href="https://api.github.com">
+  <link rel="preconnect" href="https://avatars.githubusercontent.com">
+  
+  <!-- Stylesheets -->
   <link rel="stylesheet" href="style.css">
+  
+  <!-- Structured data for better SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "GitHub Profile Checker",
+    "description": "A web application to explore GitHub profiles, repositories, and starred projects",
+    "url": "",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires JavaScript"
+  }
+  </script>
 </head>
 <body>
-  <h1>GitHub Profile Checker</h1>
+  <!-- Skip link for accessibility -->
+  <a href="#main-content" class="skip-link" aria-label="Skip to main content">Skip to main content</a>
   
-  <div class="input-section">
-    <input type="text" id="username" placeholder="Enter GitHub username">
-    <button onclick="getProfile()">Search</button>
-  </div>
+  <!-- Header -->
+  <header role="banner">
+    <h1>
+      <span aria-hidden="true">🔍</span>
+      GitHub Profile Checker
+    </h1>
+    
+    <!-- Theme switcher -->
+    <div id="theme-switcher" role="region" aria-label="Theme selection">
+      <label for="theme">Choose Theme:</label>
+      <select id="theme" aria-describedby="theme-description">
+        <option value="water">💧 Water</option>
+        <option value="fire">🔥 Fire</option>
+        <option value="windy">🌪️ Windy</option>
+      </select>
+      <div id="theme-description" class="sr-only">
+        Select a visual theme for the background animation
+      </div>
+    </div>
+  </header>
 
-  <div class="container">
-    <div id="profile" class="profile"></div>
-    <div id="repos" class="repos"></div>
-    <div id="starred" class="starred"></div>
-  </div>
+  <!-- Main content -->
+  <main id="main-content" role="main">
+    <!-- Search section -->
+    <section class="input-section" role="search" aria-label="GitHub username search">
+      <div class="search-container">
+        <label for="username" class="sr-only">GitHub Username</label>
+        <input 
+          type="text" 
+          id="username" 
+          placeholder="Enter GitHub username"
+          aria-label="GitHub username"
+          aria-describedby="search-instructions"
+          autocomplete="username"
+          spellcheck="false"
+          maxlength="39"
+        >
+        <button 
+          type="button"
+          id="search-button"
+          aria-describedby="search-instructions"
+        >
+          <span aria-hidden="true">🔍</span>
+          Search
+        </button>
+      </div>
+      <div id="search-instructions" class="sr-only">
+        Enter a GitHub username to view their profile, repositories, and starred projects
+      </div>
+    </section>
 
+    <!-- Results container -->
+    <div class="container" role="region" aria-label="Search results">
+      <!-- Profile section -->
+      <section 
+        id="profile" 
+        class="profile" 
+        role="region" 
+        aria-label="User profile information"
+        aria-live="polite"
+        aria-atomic="true"
+      ></section>
+
+      <!-- Repositories section -->
+      <section 
+        id="repos" 
+        class="repos" 
+        role="region" 
+        aria-label="User repositories"
+        aria-live="polite"
+        aria-atomic="true"
+      ></section>
+
+      <!-- Starred repositories section -->  
+      <section 
+        id="starred" 
+        class="starred" 
+        role="region" 
+        aria-label="Starred repositories"
+        aria-live="polite"
+        aria-atomic="true"
+      ></section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer role="contentinfo" class="footer">
+    <div class="footer-content">
+      <p>
+        <span aria-hidden="true">⚡</span>
+        Powered by 
+        <a 
+          href="https://docs.github.com/rest" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          aria-label="GitHub REST API documentation (opens in new tab)"
+        >
+          GitHub API
+        </a>
+      </p>
+      <p class="footer-note">
+        <span aria-hidden="true">💡</span>
+        Tip: Press Enter in the search box to quickly search
+      </p>
+    </div>
+  </footer>
+
+  <!-- Screen reader only styles -->
+  <style>
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+    
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 6px;
+      background: #000;
+      color: white;
+      padding: 8px;
+      text-decoration: none;
+      border-radius: 4px;
+      z-index: 1000;
+      transition: top 0.2s ease;
+    }
+    
+    .skip-link:focus {
+      top: 6px;
+    }
+    
+    .footer {
+      margin-top: 60px;
+      text-align: center;
+      opacity: 0.8;
+    }
+    
+    .footer-content {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 30px 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .footer-content p {
+      margin-bottom: 10px;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 0.9rem;
+    }
+    
+    .footer-content a {
+      color: #4dabf7;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    
+    .footer-content a:hover {
+      color: #74c0fc;
+      text-decoration: underline;
+    }
+    
+    .footer-note {
+      font-size: 0.8rem !important;
+      color: rgba(255, 255, 255, 0.6) !important;
+      font-style: italic;
+    }
+    
+    .search-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    
+    /* Enhanced button focus states */
+    button:focus-visible {
+      outline: 3px solid #4dabf7;
+      outline-offset: 2px;
+    }
+    
+    select:focus-visible {
+      outline: 3px solid #4dabf7;
+      outline-offset: 2px;
+    }
+    
+    /* Loading state announcements for screen readers */
+    .loading-announcement {
+      position: absolute;
+      left: -10000px;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+    }
+    
+    /* High contrast mode improvements */
+    @media (prefers-contrast: high) {
+      .footer-content {
+        border-top-color: white;
+      }
+      
+      .skip-link {
+        background: white;
+        color: black;
+        border: 2px solid black;
+      }
+    }
+    
+    /* Reduced motion preferences */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      
+      body {
+        background-image: none !important;
+      }
+    }
+    
+    /* Print styles */
+    @media print {
+      .footer,
+      #theme-switcher,
+      .input-section {
+        display: none;
+      }
+      
+      body {
+        background: white !important;
+        color: black !important;
+      }
+      
+      .profile, .repos, .starred {
+        background: white !important;
+        color: black !important;
+        border: 1px solid black !important;
+        box-shadow: none !important;
+      }
+      
+      a {
+        color: black !important;
+        text-decoration: underline !important;
+      }
+    }
+  </style>
+
+  <!-- JavaScript -->
   <script src="script.js"></script>
+  
+  <!-- Service Worker registration for future PWA capabilities -->
+  <script>
+    // Check if service workers are supported
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        // You can add service worker registration here in the future
+        console.log('Service Worker support detected');
+      });
+    }
+    
+    // Add loading announcement for screen readers
+    window.addEventListener('load', function() {
+      const announcement = document.createElement('div');
+      announcement.className = 'loading-announcement';
+      announcement.setAttribute('aria-live', 'assertive');
+      announcement.setAttribute('aria-atomic', 'true');
+      announcement.id = 'loading-announcement';
+      document.body.appendChild(announcement);
+    });
+  </script>
+
+  <!-- Performance monitoring (you can remove this in production) -->
+  <script>
+    // Basic performance monitoring
+    window.addEventListener('load', function() {
+      if ('performance' in window) {
+        const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
+        console.log(`Page load time: ${loadTime}ms`);
+      }
+    });
+  </script>
 </body>
 </html>
